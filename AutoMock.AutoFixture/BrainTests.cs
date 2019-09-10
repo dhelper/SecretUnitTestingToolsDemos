@@ -51,7 +51,7 @@ namespace AutoMock.AutoFixture
             _fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
         }
 
-        public T Fake<T>()
+        public T Fake<T>() where T: class
         {
             return _fixture.Freeze<Fake<T>>().FakedObject;
         }
