@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Autofac.Extras.FakeItEasy;
 using FakeItEasy;
-using Ninject;
-using Ninject.MockingKernel.FakeItEasy;
 using NUnit.Framework;
 
 namespace SomeServiceTests
@@ -44,27 +43,25 @@ namespace SomeServiceTests
             Assert.IsFalse(result.HasError);
             Assert.NotNull(result.TheResult);
         }
-
         #region backup
 
 /*
         [Test]
         public async Task GetTextsWhenServerDownloadFail_doneRight()
         {
-            var kernel = new FakeItEasyMockingKernel();
+            using (var autoFake = new AutoFake())
+            {
+                var fakeCacher = autoFake.Resolve<IFileCacher>();
+                var fakeCreator = autoFake.Resolve<ICreator<IFileCacher>>();
+                A.CallTo(() => fakeCreator.Get()).Returns(fakeCacher);
 
-            kernel.Bind<SomeService>().ToSelf();
+                var someService = autoFake.Resolve<SomeService>();
 
-            var fakeCacher = kernel.Get<IFileCacher>();
-            var fakeCreator = kernel.Get<ICreator<IFileCacher>>();
-            A.CallTo(() => fakeCreator.Get()).Returns(fakeCacher);
+                var result = await someService.GetTextsAsync();
 
-            var someService = kernel.Get<SomeService>();
-
-            var result = await someService.GetTextsAsync();
-
-            Assert.IsFalse(result.HasError);
-            Assert.NotNull(result.TheResult);
+                Assert.IsFalse(result.HasError);
+                Assert.NotNull(result.TheResult);
+            }
         }
 */
 
