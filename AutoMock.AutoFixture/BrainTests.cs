@@ -9,6 +9,21 @@ namespace AutoMock.AutoFixture
     public class BrainTests
     {
         [Fact]
+        public void YellIfTouchHotIron_noAutoMocking()
+        {
+            var fakeMouth = A.Fake<IMouth>();
+
+            var fakeHand = A.Fake<IHand>();
+            A.CallTo(() => fakeHand.TouchIron(A<Iron>._)).Throws<BurnException>();
+
+            var brain = new Brain(fakeHand, fakeMouth);
+
+            brain.TouchIron(new Iron { IsHot = true });
+
+            A.CallTo(() => fakeMouth.Yell()).MustHaveHappened();
+        }
+
+        [Fact]
         public void YellIfTouchHotIron()
         {
             var fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
@@ -20,7 +35,7 @@ namespace AutoMock.AutoFixture
 
             var brain = fixture.Create<Brain>();
 
-            brain.TouchIron(new Iron {IsHot = true});
+            brain.TouchIron(new Iron { IsHot = true });
 
             A.CallTo(() => fakeMouth.FakedObject.Yell()).MustHaveHappened();
         }
@@ -51,7 +66,7 @@ namespace AutoMock.AutoFixture
             _fixture = new Fixture().Customize(new AutoFakeItEasyCustomization());
         }
 
-        public T Fake<T>() where T: class
+        public T Fake<T>() where T : class
         {
             return _fixture.Freeze<Fake<T>>().FakedObject;
         }
@@ -59,6 +74,6 @@ namespace AutoMock.AutoFixture
         public T Real<T>()
         {
             return _fixture.Create<T>();
-        } 
+        }
     }
 }

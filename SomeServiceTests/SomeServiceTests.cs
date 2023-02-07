@@ -43,9 +43,7 @@ namespace SomeServiceTests
             Assert.IsFalse(result.HasError);
             Assert.NotNull(result.TheResult);
         }
-        #region backup
 
-/*
         [Test]
         public async Task GetTextsWhenServerDownloadFail_doneRight()
         {
@@ -63,9 +61,6 @@ namespace SomeServiceTests
                 Assert.NotNull(result.TheResult);
             }
         }
-*/
-
-        #endregion
     }
 
     #region Objects under test
