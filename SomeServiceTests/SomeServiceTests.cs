@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Autofac.Extras.FakeItEasy;
 using FakeItEasy;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
+
 
 namespace SomeServiceTests
 {
@@ -40,8 +42,8 @@ namespace SomeServiceTests
 
             var result = await _surveyService.GetTextsAsync();
 
-            Assert.IsFalse(result.HasError);
-            Assert.NotNull(result.TheResult);
+            ClassicAssert.IsFalse(result.HasError);
+            ClassicAssert.NotNull(result.TheResult);
         }
 
         [Test]
@@ -57,8 +59,8 @@ namespace SomeServiceTests
 
                 var result = await someService.GetTextsAsync();
 
-                Assert.IsFalse(result.HasError);
-                Assert.NotNull(result.TheResult);
+                ClassicAssert.IsFalse(result.HasError);
+                ClassicAssert.NotNull(result.TheResult);
             }
         }
     }
